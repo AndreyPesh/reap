@@ -14,6 +14,7 @@ export class UserService {
     const user = new User();
     user.name = body.name;
     user.email = body.email;
+    user.password = body.password;
     return this.userRepository.save(user);
   }
 }
