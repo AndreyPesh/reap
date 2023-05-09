@@ -5,7 +5,7 @@ import { ENV } from './shared/config/constants.env';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const config: ConfigService = app.get(ConfigService);
+  const config: ConfigService = app.get(ConfigService);  
   const PORT = config.get<number>(ENV.PORT);
 
   await app.listen(PORT);

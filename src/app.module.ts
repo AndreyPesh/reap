@@ -1,15 +1,19 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { validationSchema } from './shared/config/validation.config';
 import { envFilePath } from './shared/config/path.env';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TypeOrmConfigService } from './shared/typeorm/typeorm.service';
 import { UserModule } from './user/user.module';
+import typeorm, { TYPE_ORM_CONFIG_KEY } from './shared/typeorm/typeorm.service';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ envFilePath, validationSchema, isGlobal: true }),
-    TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
+    ConfigModule.forRoot({ envFilePath, validationSchema, isGlobal: true, load: [typeorm] }),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) =>
+        configService.get(TYPE_ORM_CONFIG_KEY),
+    }),
     UserModule,
   ],
   controllers: [],
