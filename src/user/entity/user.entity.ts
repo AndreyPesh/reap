@@ -1,10 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import Model from 'src/shared/entity/base';
+import {
+  Entity,
+  Column,
+} from 'typeorm';
 
 @Entity()
-export class User {
-  @PrimaryGeneratedColumn()
-  public id: number;
-
+export class User extends Model {
   @Column({ type: 'varchar', length: 120 })
   public name: string;
 
@@ -13,10 +14,4 @@ export class User {
 
   @Column({ type: 'boolean', default: false })
   public isDeleted: boolean;
-
-  @CreateDateColumn({ type: 'timestamp' })
-  public createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamp' })
-  public updatedAt: Date;
 }
