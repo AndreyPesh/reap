@@ -2,12 +2,12 @@ version: '3'
 services:
   postgres:
     image: postgres:alpine
-    container_name: postgres
+    container_name: postgres_nest
     ports:
       - '6500:5432'
     volumes:
       - progresDB:/var/lib/postgresql/data
     env_file:
-      - ./.env
+      - ./src/common/envs/development.env
 volumes:
   progresDB:
