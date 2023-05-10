@@ -4,7 +4,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ENV } from 'src/shared/config/constants.env';
 
-type JwtPayload = {
+export type JwtPayload = {
   sub: string;
   username: string;
 };
