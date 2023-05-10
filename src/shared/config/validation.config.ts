@@ -10,4 +10,8 @@ export const validationSchema = Joi.object({
   [ENV.POSTGRES_DB]: Joi.string().required(),
   [ENV.POSTGRES_PORT]: Joi.number().required(),
   [ENV.POSTGRES_HOST]: Joi.string().required(),
+  [ENV.JWT_ACCESS_SECRET]: Joi.string().required(),
+  [ENV.JWT_REFRESH_SECRET]: Joi.string().required(),
+  [ENV.JWT_ACCESS_EXPIRES]: Joi.string().required(),
+  [ENV.JWT_REFRESH_EXPIRES]: Joi.string().required(),
 });
