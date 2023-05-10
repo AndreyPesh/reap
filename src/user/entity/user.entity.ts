@@ -15,6 +15,6 @@ export class User extends Model {
   @Column({ type: 'boolean', default: false })
   public isDeleted: boolean;
 
-  @Column()
-  public refreshToken: string;
+  @Column({default: ''})
+  public refreshToken!: string;
 }

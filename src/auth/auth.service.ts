@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { CreatePersonDto } from 'src/api/person/dto/person.dto';
 import { PersonService } from 'src/api/person/person.service';
 import { ENV } from 'src/shared/config/constants.env';
