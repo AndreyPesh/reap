@@ -12,7 +12,7 @@ export type JwtPayload = {
 @Injectable()
 export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(private config: ConfigService) {
-    const secretAccessKey = config.get<string>(ENV.JWT_REFRESH_SECRET);
+    const secretAccessKey = config.get<string>(ENV.JWT_ACCESS_SECRET);
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: secretAccessKey,

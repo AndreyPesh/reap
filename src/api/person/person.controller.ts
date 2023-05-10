@@ -1,6 +1,17 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+import { Request } from 'express';
 import { PersonService } from './person.service';
-import { CreatePersonDto } from './dto/person.dto';
+import { CreatePersonDto, UpdatePersonDto } from './dto/person.dto';
+import { AccessTokenGuard } from 'src/auth/guards/accessToken.guard';
 
 @Controller('person')
 export class PersonController {
@@ -24,5 +35,12 @@ export class PersonController {
   @Get()
   findAll() {
     return this.personService.getAll();
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Patch()
+  update(@Body() updatePersonDto: UpdatePersonDto, @Req() req: Request) {
+    const userId = req.user['sub'];
+    return this.personService.update(userId, updatePersonDto);
   }
 }

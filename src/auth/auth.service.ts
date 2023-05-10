@@ -51,7 +51,7 @@ export class AuthService {
   }
 
   async logout(personId: string) {
-    return this.personService.update(personId, { refreshToken: null });
+    return this.personService.update(personId, { refreshToken: '' });
   }
 
   async hashData(data: string) {
