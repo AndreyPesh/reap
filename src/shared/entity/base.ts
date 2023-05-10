@@ -9,7 +9,7 @@ import {
 @Entity()
 export default abstract class Model extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  public id!: number;
+  public id!: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   public createdAt!: Date;
