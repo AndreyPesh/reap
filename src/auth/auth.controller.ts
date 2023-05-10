@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { CreatePersonDto } from 'src/api/person/dto/person.dto';
 import { AuthDto } from './dto/auth.dto';
 import { AccessTokenGuard } from './guards/accessToken.guard';
+import { RefreshTokenGuard } from './guards/refreshToken.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -18,9 +19,18 @@ export class AuthController {
   signin(@Body() data: AuthDto) {
     return this.authService.singIn(data);
   }
+
   @UseGuards(AccessTokenGuard)
   @Get('logout')
   logout(@Req() req: Request) {
     this.authService.logout(req.user['sub']);
+  }
+
+  @UseGuards(RefreshTokenGuard)
+  @Get('refresh')
+  refreshTokens(@Req() req: Request) {
+    const userId = req.user['sub'];
+    const refreshToken = req.user['refreshToken'];
+    return this.authService.refreshTokens(userId, refreshToken);
   }
 }

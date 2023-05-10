@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -89,5 +93,22 @@ export class AuthService {
       ),
     ]);
     return { accessToken, refreshToken };
+  }
+
+  async refreshTokens(personId: string, refreshToken: string) {
+    const person = await this.personService.getPersonById(personId);
+    if (!person || !person.refreshToken) {
+      throw new ForbiddenException('Access denied');
+    }
+    const refreshTokenMatches = await bcrypt.compare(
+      refreshToken,
+      person.refreshToken,
+    );
+    if (!refreshTokenMatches) {
+      throw new ForbiddenException('Access denied');
+    }
+    const tokens = await this.getTokens(person.id, person.name);
+    await this.updateRefreshToken(person.id, tokens.refreshToken);
+    return tokens;
   }
 }
