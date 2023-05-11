@@ -17,4 +17,8 @@ export class UserService {
     user.password = body.password;
     return this.userRepository.save(user);
   }
+
+  find() {
+    return this.userRepository.find();
+  }
 }
