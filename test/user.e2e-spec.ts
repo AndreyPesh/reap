@@ -12,7 +12,6 @@ let repository: Repository<User>;
 beforeAll(async () => {
   const module: TestingModule = await Test.createTestingModule({
     imports: [
-      
       // Use the e2e_test database to run the tests
       TypeOrmModule.forRoot({
         type: 'postgres',
@@ -37,8 +36,24 @@ afterAll(async () => {
 });
 
 describe('GET /user', () => {
-
   it('should return an array of users', async () => {
+    return (
+      request(app.getHttpServer())
+        .get('/user')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200)
+    );
+  });
+});
+
+describe('POST /user', () => {
+  it('should return user data', async () => {
+    const userData = {
+      name: 'andrei',
+      email: '123@mail.ru',
+      password: '12344',
+    };
     // Pre-populate the DB with some dummy users
     // await repository.save([
     //   { name: 'test-name-0' },
@@ -46,13 +61,17 @@ describe('GET /user', () => {
     // ]);
 
     // Run your end-to-end test
-    return request(app.getHttpServer())
-    // const { body } = await supertest
-      // .agent(app.getHttpServer())
-      .get('/user')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200);
+    return (
+      request(app.getHttpServer())
+        // const { body } = await supertest
+        // .agent(app.getHttpServer())
+        .post('/user')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .send(userData)
+        .expect(201)
+        .expect((response) => expect(response.body).toMatchObject(userData))
+    );
 
     // expect(body).toEqual([
     //   { id: expect.any(Number), name: 'test-name-0' },

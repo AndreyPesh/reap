@@ -6,6 +6,7 @@ import typeorm, { TYPE_ORM_CONFIG_KEY } from './shared/typeorm/typeorm.service';
 import { AppController } from './app.controller';
 import { PersonModule } from './api/person/person.module';
 import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     PersonModule,
     AuthModule,
+    UserModule
   ],
   controllers: [],
   providers: [],
