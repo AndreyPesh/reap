@@ -5,6 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import typeorm, { TYPE_ORM_CONFIG_KEY } from './shared/typeorm/typeorm.service';
 import { UserModule } from './jwt/user/user.module';
 import { AuthModule } from './jwt/auth/auth.module';
+import { AppController } from './app.controller';
+import { PersonModule } from './api/person/person.module';
+
 
 @Module({
   imports: [
