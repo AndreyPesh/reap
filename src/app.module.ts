@@ -3,9 +3,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { validationSchema } from './shared/config/validation.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import typeorm, { TYPE_ORM_CONFIG_KEY } from './shared/typeorm/typeorm.service';
-import { AppController } from './app.controller';
-import { PersonModule } from './api/person/person.module';
-import { AuthModule } from './auth/auth.module';
+import { UserModule } from './jwt/user/user.module';
+import { AuthModule } from './jwt/auth/auth.module';
 
 @Module({
   imports: [
@@ -15,8 +14,10 @@ import { AuthModule } from './auth/auth.module';
       useFactory: (configService: ConfigService) =>
         configService.get(TYPE_ORM_CONFIG_KEY),
     }),
-    PersonModule,
+    UserModule,
     AuthModule,
+    // PersonModule,
+    // AuthModule,
   ],
   controllers: [],
   providers: [],
