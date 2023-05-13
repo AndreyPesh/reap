@@ -2,11 +2,15 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Patch,
   Post,
   Req,
   UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { PersonService } from './person.service';
@@ -38,9 +42,13 @@ export class PersonController {
   }
 
   @UseGuards(AccessTokenGuard)
+  //transform to required types
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @HttpCode(HttpStatus.CREATED)
   @Patch()
-  update(@Body() updatePersonDto: UpdatePersonDto, @Req() req: Request) {
+  async update(@Body() updatePersonDto: UpdatePersonDto, @Req() req: Request) {
     const userId = req.user['sub'];
-    return this.personService.update(userId, updatePersonDto);
+    await this.personService.update(userId, updatePersonDto);
+    return;
   }
 }
