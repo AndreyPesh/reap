@@ -39,6 +39,8 @@ export class AuthService {
 
   async singIn(data: AuthDto) {
     const person = await this.personService.getPersonByName(data.username);
+    console.log(data);
+    
     if (!person) {
       throw new BadRequestException('User does not exist');
     }
