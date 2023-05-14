@@ -1,4 +1,4 @@
-import Model from 'src/shared/entity/base';
+import Model from '../../shared/entity/base';
 import { Entity, Column } from 'typeorm';
 
 @Entity()

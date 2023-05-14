@@ -15,7 +15,7 @@ import {
 import { Request } from 'express';
 import { PersonService } from './person.service';
 import { CreatePersonDto, UpdatePersonDto } from './dto/person.dto';
-import { AccessTokenGuard } from 'src/auth/guards/accessToken.guard';
+import { AccessTokenGuard } from '../../auth/guards/accessToken.guard';
 
 @Controller('person')
 export class PersonController {
